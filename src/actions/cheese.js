@@ -30,3 +30,25 @@ export const fetchCheeses = () => dispatch => {
 			dispatch(fetchCheesesSuccess(cheeses));
 		}).catch(error => dispatch(fetchCheesesError(error)));
 };
+
+export const ADD_CHEESE = 'ADD_CHEESE';
+export const addCheese = (cheese) => dispatch => {
+	dispatch(fetchCheesesRequest());
+	return fetch(`${REACT_APP_API_BASE_URL}/cheeses`, 
+		{
+			method: 'POST', 
+			headers: {'Content-Type': 'application/json', 'Accept': 'application/json' },
+			body: JSON.stringify(cheese)
+		})
+		.then(res => {
+			if (!res.ok) {
+				return Promise.reject(res.statusText);
+			}
+			return res.json();
+		}).then(
+			cheeses => {
+				dispatch(fetchCheesesSuccess(cheeses));
+			})
+		.then(() => {dispatch(fetchCheeses());}
+		).catch(error => dispatch(fetchCheesesError(error)));
+};

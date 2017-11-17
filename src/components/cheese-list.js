@@ -1,5 +1,6 @@
 import React from 'react';
 import {fetchCheeses} from '../actions/cheese';
+import CheeseAddForm from './cheese-add-form';
 import {connect} from 'react-redux';
 
 export class CheeseList extends React.Component {  
@@ -13,9 +14,13 @@ export class CheeseList extends React.Component {
     })
 
     return (
-      <ul>
-        {cheeses}
-      </ul>)
+      <div>
+        <ul>
+          {cheeses}
+        </ul>
+        <CheeseAddForm />
+      </div>
+    )
   }
 }
 
