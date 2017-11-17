@@ -44,11 +44,23 @@ export const addCheese = (cheese) => dispatch => {
 			if (!res.ok) {
 				return Promise.reject(res.statusText);
 			}
+			console.log(res.json);
 			return res.json();
 		}).then(
-			cheeses => {
-				dispatch(fetchCheesesSuccess(cheeses));
-			})
-		.then(() => {dispatch(fetchCheeses());}
-		).catch(error => dispatch(fetchCheesesError(error)));
+			cheese => {
+				dispatch(addCheeseSuccess(cheese));
+			}
+		).then(
+			() => {
+				dispatch(fetchCheeses());
+				console.log('We got here.');
+			}
+		)
+		.catch(error => dispatch(fetchCheesesError(error)));
 };
+
+export const ADD_CHEESE_SUCCESS = 'ADD_CHEESE_SUCCESS';
+export const addCheeseSuccess = (cheese) => ({
+	type: ADD_CHEESE_SUCCESS,
+	cheese
+});
